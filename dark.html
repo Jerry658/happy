@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="DlP5RTR7AMX3I_dr5JUwZZGWi9v_vYf74BVJEQUG0pg">
+    <meta name="description" content="Happy Days – Free Wisdom Generator with dark mode for a comfortable viewing experience at night.">
+    <meta name="keywords" content="wisdom, quotes, compliments, positivity, dark mode">
+    <meta name="author" content="Your Name">
+    <title>Happy Days - Dark Mode</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+        .font-arial { font-family: Arial, sans-serif; }
+        .font-georgia { font-family: Georgia, serif; }
+        .font-verdana { font-family: Verdana, sans-serif; }
+        .font-courier { font-family: Courier, monospace; }
+        .copy-success {
+            display: none;
+            color: lightgreen;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header class="flex justify-between items-center p-4">
+        <div class="flex items-center space-x-2">
+            <img alt="MasterYang logo" class="w-8 h-8" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Yin_and_Yang_symbol.svg/1200px-Yin_and_Yang_symbol.svg.png"/>
+            <h1 class="text-2xl font-bold">MasterYang</h1>
+        </div>
+        <div>
+            <a href="index.html" id="lightModeToggle" class="text-2xl text-gray-300"><i class="fas fa-sun"></i></a>
+            <i class="fas fa-bars text-2xl ml-4 text-gray-300"></i>
+        </div>
+    </header>
+    <main class="text-center mt-10">
+        <h2 class="text-4xl font-bold">Happy Days – Free Wisdom Generator</h2>
+        <p class="mt-4">Happy Days is a simple tool that helps you generate wise quotes or compliments to brighten someone's day. Use it for your friends, family, or even yourself!</p>
+    </main>
+    <section class="flex flex-wrap justify-center mt-10 space-x-4">
+        <div class="bg-blue-800 text-white p-6 rounded-lg shadow-lg w-64">
+            <h3 class="text-xl font-bold mb-4">Quote Variety</h3>
+            <select id="buttontext" class="bg-blue-600 p-4 rounded-lg w-full">
+                <option value="font-arial">Good</option>
+                <option value="font-georgia">Very Good</option>
+                <option value="font-verdana">Great</option>
+                <option value="font-courier">Nice</option>
+            </select>
+        </div>
+        <div class="flex flex-col justify-center items-center">
+            <button id="generateButton" class="bg-green-900 text-white py-3 px-6 rounded-lg shadow-lg text-lg">Generate</button>
+            <div class="flex space-x-2 mt-4">
+                <button class="text-blue-300" onclick="undo()"><i class="fas fa-undo"></i> Undo</button>
+                <button class="text-blue-300" onclick="redo()"><i class="fas fa-redo"></i> Redo</button>
+            </div>
+        </div>
+        <div class="bg-blue-800 text-white p-6 rounded-lg shadow-lg w-64">
+            <h3 class="text-xl font-bold mb-4">Button Style</h3>
+            <select id="buttonStyle" class="bg-blue-600 p-4 rounded-lg w-full">
+                <option value="font-arial">Arial</option>
+                <option value="font-georgia">Georgia</option>
+                <option value="font-verdana">Verdana</option>
+                <option value="font-courier">Courier</option>
+            </select>
+        </div>
+    </section>
+    <section class="text-center mt-10">
+        <div id="compliment" class="text-2xl font-bold"></div>
+        <button id="copyButton" class="mt-4 bg-blue-800 text-white py-2 px-4 rounded-lg shadow-lg">Copy to Clipboard</button>
+        <div id="copySuccess" class="copy-success">Successfully Copied!</div>
+        <div class="flex justify-center space-x-4 mt-4">
+            <button class="bg-blue-800 text-white py-2 px-4 rounded-lg shadow-lg" onclick="share('twitter')"><i class="fab fa-twitter"></i> Share on Twitter</button>
+            <button class="bg-blue-800 text-white py-2 px-4 rounded-lg shadow-lg" onclick="share('facebook')"><i class="fab fa-facebook"></i> Share on Facebook</button>
+            <button class="bg-pink-800 text-white py-2 px-4 rounded-lg shadow-lg" onclick="share('instagram')"><i class="fab fa-instagram"></i> Share on Instagram</button>
+        </div>
+    </section>
+    <script>
+        const compliments = [
+            "Your smile looks beautiful today.",
+            "When there's a will, there's a way.",
+            "You have a great sense of humor.",
+            "Hard work pays off.",
+            "Your positivity is infectious.",
+            "Dreams come true when we believe.",
+            "You are an amazing friend.",
+            "The best is yet to come.",
+            "Your kindness makes the world a better place.",
+            "Believe in yourself and all that you are.",
+            "Your creativity is inspiring.",
+            "Success is not the key to happiness. Happiness is the key to success.",
+            "You light up the room.",
+            "With every challenge comes opportunity.",
+	    "You are stronger than you think.",
+            "Your smile brightens the darkest days.",
+            "Every step you take is progress.",
+            "You are capable of achieving great things.",
+            "Your presence is a gift to those around you.",
+            "You have the power to create change.",
+	    "Your determination is inspiring.",
+	    "You bring joy wherever you go.",
+	    "You are deserving of all the good in life.",
+	    "Your potential is limitless.",
+	    "You are a beacon of hope.",
+	    "You have a unique and valuable perspective.",
+	    "Your compassion makes a difference.",
+	    "You are enough, just as you are.",
+	    "Your optimism is contagious.",
+	    "You have the courage to face any challenge.",
+	    "You are a source of inspiration.",
+	    "Your dreams are within reach.",
+	    "You make the world a better place just by being in it.",
+	    "You have a beautiful soul.",
+	    "Your hard work is paying off.",
+	    "You are loved and appreciated.",
+	    "You have the power to make today amazing.",
+	    "Your positive energy is infectious.",
+	    "You are a true friend.",
+	    "You have a kind and generous heart.",
+	    "You are a light in the darkness.",
+	    "Your resilience is commendable.",
+	    "You have the strength to overcome any obstacle.",
+	    "Your creativity knows no bounds.",
+	    "You are a wonderful listener.",
+	    "You have a bright future ahead.",
+	    "Your kindness is a ripple effect.",
+	    "You are a true original.",
+	    "You have the power to change your story.",
+	    "Your bravery is awe-inspiring.",
+	    "You are a positive force in the world.",
+	    "Your enthusiasm is energizing.",
+	    "You have a heart full of dreams.",
+	    "You are worthy of all the love and happiness in the world.",
+	    "Your spirit is unbreakable.",
+	    "You have the ability to make a difference.",
+	    "Your laughter is music to the ears.",
+	    "You are a treasure.",
+	    "You have an amazing inner strength.",
+	    "Your kindness is unforgettable.",
+	    "You are a source of wisdom.",
+	    "You have a beautiful mind.",
+	    "Your generosity is boundless.",
+	    "You are a ray of sunshine.",
+	    "You have a spirit that can't be tamed.",
+	    "Your determination is unmatched.",
+	    "You are a pillar of strength.",
+	    "You have a magnetic personality.",
+	    "Your smile is your best feature.",
+	    "You are a breath of fresh air.",
+	    "You have a heart that is pure and true.",
+	    "Your dreams are worth chasing.",
+	    "You are a diamond in the rough.",
+	    "You have a way with words.",
+	    "Your courage under pressure is remarkable.",
+	    "You are a work of art.",
+	    "You have a spirit that shines brightly.",
+	    "Your kindness is your greatest strength.",
+	    "You are a natural leader.",
+	    "You have a warmth that is inviting.",
+	    "Your passion is inspiring.",
+	    "You are a wonderful person.",
+	    "You have a gift for making people feel special.",
+	    "Your perseverance is admirable.",
+	    "You have a heart of gold.",
+	    "Every day is a new beginning.",
+	    "Your courage is admirable.",
+	    "The sky's the limit.",
+	    "You are a breath of fresh air.",
+	    "Life is what you make it.",
+            "You have a brilliant mind.",
+            "Good things take time.",
+            "You are a true gem.",
+            "Positivity always wins.",
+            "You are a natural leader.",
+            "Love is the answer.",
+            "You have a great taste in fashion.",
+            "Stay strong and carry on.",
+            "You are incredibly talented.",
+            "Happiness is a choice.",
+            "Your laughter is music to my ears.",
+            "Every day is a new opportunity.",
+            "You make the world a better place.",
+            "Embrace the glorious mess that you are.",
+            "You are full of wisdom.",
+            "Gratitude changes everything.",
+            "Your spirit is unbreakable.",
+            "Nothing is impossible.",
+            "You have a beautiful soul.",
+            "Life is a journey, not a destination.",
+            "Your determination is remarkable.",
+            "The best is yet to come.",
+            "You are a ray of sunshine.",
+            "Kindness is free, sprinkle it everywhere.",
+            "You have an incredible energy.",
+            "Success is a journey, not a destination.",
+            "You are unique and special.",
+            "Change is the only constant.",
+            "You have a wonderful way with words.",
+            "Believe you can and you're halfway there.",
+            "You are a great listener.",
+            "The future belongs to those who believe in the beauty of their dreams.",
+            "You are an inspiration to many.",
+            "Keep your face always toward the sunshine—and shadows will fall behind you.",
+            "You have a magnetic personality.",
+            "Life is what happens when you're busy making other plans.",
+            "You are a gift to those around you.",
+            "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+            "You are full of life.",
+            "What we think, we become.",
+            "You have a generous heart.",
+            "Do what you can, with what you have, where you are.",
+            "You are a true original.",
+            "Life is short, make it sweet.",
+            "You have a great sense of style.",
+            "The purpose of life is not to be happy. It is to be useful, to be honorable, to be compassionate.",
+            "You are destined for greatness.",
+            "To live is the rarest thing in the world. Most people exist, that is all.",
+            "You are incredibly brave.",
+            "Life is really simple, but we insist on making it complicated.",
+            "You are a shining star.",
+            "Our lives begin to end the day we become silent about things that matter.",
+            "You are a beacon of light.",
+            "The only limit to our realization of tomorrow is our doubts of today.",
+            "You have an incredible presence.",
+            "The only impossible journey is the one you never begin.",
+            "You are a miracle.",
+            "Life is 10% what happens to us and 90% how we react to it.",
+            "You are a wonderful human being.",
+            "Happiness is not something ready-made. It comes from your own actions.",
+            "You have a radiant personality.",
+            "Life is like riding a bicycle. To keep your balance, you must keep moving.",
+            "You are a true visionary.",
+            "The best way to predict your future is to create it.",
+            "You are an angel.",
+            "Life isn't about finding yourself. Life is about creating yourself.",
+            "You have a heartwarming smile.",
+            "You miss 100% of the shots you don't take.",
+            "You are a joy to be around.",
+            "Life is either a daring adventure or nothing at all.",
+            "You are a work of art.",
+            "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.",
+            "You are a source of joy.",
+            "Life is what you make of it.",
+            "You have a beautiful mind.",
+            "The only way to do great work is to love what you do.",
+            "You are a blessing to those around you.",
+            "Life's most persistent and urgent question is, 'What are you doing for others?'",
+            "You have an incredible sense of empathy.",
+            "Life is short, and it is up to you to make it sweet.",
+            "You are an amazing person.",
+            "The journey of a thousand miles begins with one step.",
+            "You have a lovely voice.",
+            "You must be the change you wish to see in the world.",
+            "You are a true friend.",
+            "Life is really simple, but we insist on making it complicated.",
+            "You have a remarkable soul.",
+            "The best way to find yourself is to lose yourself in the service of others.",
+            "You are a treasure.",
+            "The future belongs to those who believe in the beauty of their dreams.",
+            "You are full of potential.",
+            "Life is a series of moments, live each one to the fullest.",
+            "You are a true gift.",
+            "Keep your face always toward the sunshine—and shadows will fall behind you.",
+            "You are incredibly thoughtful.",
+            "Life is not measured by the number of breaths we take, but by the moments that take our breath away.",
+            "You have a charming personality.",
+            "You must do the things you think you cannot do.",
+            "You are a bright light in a dark world.",
+            "Life is what we make it, always has been, always will be.",
+            "You are a true joy.",
+            "The best way to predict the future is to invent it.",
+            "You have a calming presence.",
+            "Life is a succession of lessons which must be lived to be understood.",
+            "You are a wonderful soul.",
+            "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+            "You are full of grace.",
+            "Life is really simple, but we insist on making it complicated.",
+            "You have an infectious laugh.",
+            "The only way to do great work is to love what you do.",
+            "You are incredibly wise.",
+            "Life is 10% what happens to us and 90% how we react to it.",
+            "You have a beautiful heart.",
+            "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.",
+            "You are an amazing soul.",
+            "Life is not measured by the number of breaths we take, but by the moments that take our breath away.",
+            "You are a source of inspiration.",
+            "The journey of a thousand miles begins with one step.",
+            "You are full of life.",
+            "Life is a series of moments, live each one to the fullest.",
+            "You have a gentle spirit.",
+            "The only limit to our realization of tomorrow is our doubts of today.",
+            "You are a breath of fresh air.",
+            "Life is what happens when you're busy making other plans.",
+            "You are a true gem.",
+            "The best way to predict the future is to invent it.",
+            "You have an incredible mind.",
+            "Life is not about waiting for the storm to pass, but learning to dance in the rain.",
+            "You are a wonderful person.",
+            "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+            "You are full of love.",
+            "Life is what you make it.",
+            "You have a radiant energy.",
+            "The best way to find yourself is to lose yourself in the service of others.",
+            "You are an inspiration to many.",
+            "Life is a journey, not a destination.",
+            "You have a kind heart.",
+            "The future belongs to those who believe in the beauty of their dreams.",
+            "You are a source of strength.",
+            "Life is really simple, but we insist on making it complicated.",
+            "You have a positive attitude.",
+            "The only way to do great work is to love what you do.",
+            "You are a beacon of hope.",
+            "Life is what we make it, always has been, always will be.",
+            "You have a beautiful soul.",
+            "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+            "You are full of potential.",
+            "Life is not measured by the number of breaths we take, but by the moments that take our breath away.",
+            "You have a warm personality.",
+            "The best way to predict the future is to invent it.",
+            "You are a true friend.",
+            "Life is really simple, but we insist on making it complicated.",
+            "You have an amazing spirit.",
+            "The only way to do great work is to love what you do.",
+            "You are incredibly kind.",
+            "Life is 10% what happens to us and 90% how we react to it.",
+            "You have a brilliant mind.",
+            "Your humor is delightful.",
+            "You are a wonderful mentor.",
+            "Your wisdom is a gift.",
+            "You are a source of inspiration.",
+            "Your kindness is extraordinary.",
+            "You have a radiant soul.",
+            "Your joy is infectious.",
+            "You are a true blessing.",
+            "Your dedication is inspiring.",
+            "You are a beautiful spirit.",
+            "Your warmth is inviting.",
+            "You have a gift for making people feel special.",
+            "You are a beacon of hope.",
+            "Your grace is unparalleled.",
+            "You are a beautiful soul.",
+            "Your love is a powerful force."
+        ];
+        let history = [];
+        let historyIndex = -1;
+
+        document.getElementById('generateButton').addEventListener('click', () => {
+            const buttonStyle = document.getElementById('buttonStyle').value;
+            const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+            const complimentElement = document.getElementById('compliment');
+            complimentElement.className = `${buttonStyle} text-2xl font-bold`;
+            complimentElement.textContent = `"${randomCompliment}"`;
+            history.push({ text: randomCompliment, style: buttonStyle });
+            historyIndex = history.length - 1;
+        });
+
+        function undo() {
+            if (historyIndex > 0) {
+                historyIndex--;
+                const { text, style } = history[historyIndex];
+                const complimentElement = document.getElementById('compliment');
+                complimentElement.className = `${style} text-2xl font-bold`;
+                complimentElement.textContent = `"${text}"`;
+            }
+        }
+
+        function redo() {
+            if (historyIndex < history.length - 1) {
+                historyIndex++;
+                const { text, style } = history[historyIndex];
+                const complimentElement = document.getElementById('compliment');
+                complimentElement.className = `${style} text-2xl font-bold`;
+                complimentElement.textContent = `"${text}"`;
+            }
+        }
+
+        document.getElementById('copyButton').addEventListener('click', () => {
+            const complimentElement = document.getElementById('compliment');
+            navigator.clipboard.writeText(complimentElement.textContent).then(() => {
+                const copySuccess = document.getElementById('copySuccess');
+                copySuccess.style.display = 'block';
+                setTimeout(() => {
+                    copySuccess.style.display = 'none';
+                }, 2000);
+            });
+        });
+
+        function share(platform) {
+            const complimentElement = document.getElementById('compliment');
+            const text = encodeURIComponent(complimentElement.textContent);
+            let url = '';
+
+            if (platform === 'twitter') {
+                url = `https://twitter.com/intent/tweet?text=${text}`;
+            } else if (platform === 'facebook') {
+                url = `https://www.facebook.com/sharer/sharer.php?u=${text}`;
+            } else if (platform === 'instagram') {
+                url = `https://www.instagram.com/create/story/?text=${text}`;
+            }
+
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
