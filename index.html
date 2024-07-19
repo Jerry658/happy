@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="DlP5RTR7AMX3I_dr5JUwZZGWi9v_vYf74BVJEQUG0pg" />
+    <meta name="google-site-verification" content="DlP5RTR7AMX3I_dr5JUwZZGWi9v_vYf74BVJEQUG0pg">
     <title>Happy Days</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -11,24 +12,33 @@
         .font-georgia { font-family: Georgia, serif; }
         .font-verdana { font-family: Verdana, sans-serif; }
         .font-courier { font-family: Courier, monospace; }
+        .copy-success {
+            display: none;
+            color: green;
+            font-size: 0.875rem; /* text-sm */
+            margin-top: 0.5rem; /* mt-2 */
+        }
     </style>
 </head>
 <body class="bg-gray-50">
     <header class="flex justify-between items-center p-4">
         <div class="flex items-center space-x-2">
-            <img alt="MasterYang logo" class="w-10 h-10" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Yin_and_Yang_symbol.svg/1200px-Yin_and_Yang_symbol.svg.png" width="40" height="40"/>
+            <img alt="MasterYang logo" class="w-8 h-8" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Yin_and_Yang_symbol.svg/1200px-Yin_and_Yang_symbol.svg.png"/>
             <h1 class="text-2xl font-bold">MasterYang</h1>
         </div>
-        <i class="fas fa-bars text-2xl"></i>
+        <div>
+            <a href="dark.html" id="darkModeToggle" class="text-2xl"><i class="fas fa-moon"></i></a>
+            <i class="fas fa-bars text-2xl ml-4"></i>
+        </div>
     </header>
     <main class="text-center mt-10">
         <h2 class="text-4xl font-bold text-gray-800">Happy Days – Free Wisdom Generator</h2>
         <p class="text-gray-500 mt-4">Happy Days is a simple tool that helps you generate wise quotes or compliments to brighten someone's day. Use it for your friends, family, or even yourself!</p>
     </main>
-    <section class="flex justify-center mt-10 space-x-4">
+    <section class="flex flex-wrap justify-center mt-10 space-x-4">
         <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg w-64">
             <h3 class="text-xl font-bold mb-4">Quote Variety</h3>
-			 <select id="buttontext" class="bg-blue-300 p-4 rounded-lg w-full">
+            <select id="buttontext" class="bg-blue-300 p-4 rounded-lg w-full">
                 <option value="font-arial">Good</option>
                 <option value="font-georgia">Very Good</option>
                 <option value="font-verdana">Great</option>
@@ -43,7 +53,7 @@
             </div>
         </div>
         <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg w-64">
-            <h3 class="text-xl font-bold mb-4">Button style</h3>
+            <h3 class="text-xl font-bold mb-4">Button Style</h3>
             <select id="buttonStyle" class="bg-blue-300 p-4 rounded-lg w-full">
                 <option value="font-arial">Arial</option>
                 <option value="font-georgia">Georgia</option>
@@ -54,6 +64,12 @@
     </section>
     <section class="text-center mt-10">
         <div id="compliment" class="text-2xl font-bold"></div>
+        <button id="copyButton" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg">Copy to Clipboard</button>
+        <div id="copySuccess" class="copy-success">Successfully Copied!</div>
+        <div class="flex justify-center space-x-4 mt-4">
+            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg" onclick="share('twitter')"><i class="fab fa-twitter"></i> Share on Twitter</button>
+            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg" onclick="share('facebook')"><i class="fab fa-facebook"></i> Share on Facebook</button>
+        </div>
     </section>
     <script>
         const compliments = [
@@ -321,18 +337,15 @@
             "You are a beautiful soul.",
             "Your love is a powerful force."
         ];
-
         let history = [];
         let historyIndex = -1;
 
         document.getElementById('generateButton').addEventListener('click', () => {
             const buttonStyle = document.getElementById('buttonStyle').value;
             const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
-
             const complimentElement = document.getElementById('compliment');
             complimentElement.className = `${buttonStyle} text-2xl font-bold`;
             complimentElement.textContent = `"${randomCompliment}"`;
-
             history.push({ text: randomCompliment, style: buttonStyle });
             historyIndex = history.length - 1;
         });
@@ -355,6 +368,31 @@
                 complimentElement.className = `${style} text-2xl font-bold`;
                 complimentElement.textContent = `"${text}"`;
             }
+        }
+
+        document.getElementById('copyButton').addEventListener('click', () => {
+            const complimentElement = document.getElementById('compliment');
+            navigator.clipboard.writeText(complimentElement.textContent).then(() => {
+                const copySuccess = document.getElementById('copySuccess');
+                copySuccess.style.display = 'block';
+                setTimeout(() => {
+                    copySuccess.style.display = 'none';
+                }, 2000);
+            });
+        });
+
+        function share(platform) {
+            const complimentElement = document.getElementById('compliment');
+            const text = encodeURIComponent(complimentElement.textContent);
+            let url = '';
+
+            if (platform === 'twitter') {
+                url = `https://twitter.com/intent/tweet?text=${text}`;
+            } else if (platform === 'facebook') {
+                url = `https://www.facebook.com/sharer/sharer.php?u=${text}`;
+            }
+
+            window.open(url, '_blank');
         }
     </script>
 </body>
