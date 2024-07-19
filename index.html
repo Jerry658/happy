@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="DlP5RTR7AMX3I_dr5JUwZZGWi9v_vYf74BVJEQUG0pg">
+    <meta name="description" content="Happy Days - Free Wisdom Generator to brighten someone's day with wise quotes and compliments.">
+    <meta name="keywords" content="wisdom, quotes, compliments, positivity">
+    <meta name="author" content="Your Name">
     <title>Happy Days</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         .font-arial { font-family: Arial, sans-serif; }
@@ -15,8 +18,7 @@
         .copy-success {
             display: none;
             color: green;
-            font-size: 0.875rem; /* text-sm */
-            margin-top: 0.5rem; /* mt-2 */
+            font-weight: bold;
         }
     </style>
 </head>
@@ -27,8 +29,8 @@
             <h1 class="text-2xl font-bold">MasterYang</h1>
         </div>
         <div>
-            <a href="dark.html" id="darkModeToggle" class="text-2xl"><i class="fas fa-moon"></i></a>
-            <i class="fas fa-bars text-2xl ml-4"></i>
+            <a href="dark.html" id="darkModeToggle" class="text-2xl text-gray-800"><i class="fas fa-moon"></i></a>
+            <i class="fas fa-bars text-2xl ml-4 text-gray-800"></i>
         </div>
     </header>
     <main class="text-center mt-10">
@@ -69,6 +71,7 @@
         <div class="flex justify-center space-x-4 mt-4">
             <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg" onclick="share('twitter')"><i class="fab fa-twitter"></i> Share on Twitter</button>
             <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg" onclick="share('facebook')"><i class="fab fa-facebook"></i> Share on Facebook</button>
+            <button class="bg-pink-500 text-white py-2 px-4 rounded-lg shadow-lg" onclick="share('instagram')"><i class="fab fa-instagram"></i> Share on Instagram</button>
         </div>
     </section>
     <script>
@@ -390,6 +393,8 @@
                 url = `https://twitter.com/intent/tweet?text=${text}`;
             } else if (platform === 'facebook') {
                 url = `https://www.facebook.com/sharer/sharer.php?u=${text}`;
+            } else if (platform === 'instagram') {
+                url = `https://www.instagram.com/create/story/?text=${text}`;
             }
 
             window.open(url, '_blank');
