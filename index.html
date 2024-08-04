@@ -21,6 +21,20 @@
             color: green;
             font-weight: bold;
         }
+        /* Additional styling for mobile adjustments */
+        @media (max-width: 640px) {
+            .responsive-spacing {
+                margin-top: 1rem; /* Adjust this value as needed */
+                margin-left: 1.5rem; /* Increase this value to align with "Quote Variety" */
+            }
+            .flex-wrap {
+                flex-direction: column;
+                align-items: center;
+            }
+            .quote-variety-spacing {
+                margin-bottom: 1rem; /* Add space below "Quote Variety" box */
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -38,8 +52,8 @@
         <h2 class="text-4xl font-bold text-gray-800">Happy Days – Free Wisdom Generator</h2>
         <p class="text-gray-500 mt-4">Happy Days is a simple tool that helps you generate wise quotes or compliments to brighten someone's day. Use it for your friends, family, or even yourself!</p>
     </main>
-    <section class="flex flex-wrap justify-center mt-10 gap-4">
-        <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg w-full max-w-sm">
+    <section class="flex flex-wrap justify-center mt-10 space-x-4">
+        <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg w-64 quote-variety-spacing">
             <h3 class="text-xl font-bold mb-4">Quote Variety</h3>
             <select id="buttontext" class="bg-blue-300 p-4 rounded-lg w-full">
                 <option value="font-arial">Good</option>
@@ -48,14 +62,14 @@
                 <option value="font-courier">Nice</option>
             </select>
         </div>
-        <div class="flex flex-col items-center w-full max-w-sm">
+        <div class="flex flex-col justify-center items-center">
             <button id="generateButton" class="bg-green-700 text-white py-3 px-6 rounded-lg shadow-lg text-lg">Generate</button>
-            <div class="flex flex-wrap gap-2 mt-4">
+            <div class="flex space-x-2 mt-4">
                 <button class="text-blue-500" onclick="undo()"><i class="fas fa-undo"></i> Undo</button>
                 <button class="text-blue-500" onclick="redo()"><i class="fas fa-redo"></i> Redo</button>
             </div>
         </div>
-        <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg w-full max-w-sm">
+        <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg w-64 responsive-spacing">
             <h3 class="text-xl font-bold mb-4">Button Style</h3>
             <select id="buttonStyle" class="bg-blue-300 p-4 rounded-lg w-full">
                 <option value="font-arial">Arial</option>
@@ -69,7 +83,7 @@
         <div id="compliment" class="text-2xl font-bold"></div>
         <button id="copyButton" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg">Copy to Clipboard</button>
         <div id="copySuccess" class="copy-success">Successfully Copied!</div>
-        <div class="flex flex-wrap justify-center gap-4 mt-4">
+        <div class="flex justify-center space-x-4 mt-4">
             <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg" onclick="share('twitter')"><i class="fab fa-twitter"></i> Share on Twitter</button>
             <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg" onclick="share('facebook')"><i class="fab fa-facebook"></i> Share on Facebook</button>
             <button class="bg-pink-500 text-white py-2 px-4 rounded-lg shadow-lg" onclick="share('instagram')"><i class="fab fa-instagram"></i> Share on Instagram</button>
@@ -340,7 +354,7 @@
             "Your grace is unparalleled.",
             "You are a beautiful soul.",
             "Your love is a powerful force."
-        ];
+			        ];
         let history = [];
         let historyIndex = -1;
 
@@ -403,3 +417,4 @@
     </script>
 </body>
 </html>
+
