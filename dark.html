@@ -27,21 +27,21 @@
     </style>
 </head>
 <body>
-    <header class="flex justify-between items-center p-4">
+    <header class="flex justify-between items-center p-4 bg-gray-900">
         <div class="flex items-center space-x-2">
             <img alt="MasterYang logo" class="w-8 h-8" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Yin_and_Yang_symbol.svg/1200px-Yin_and_Yang_symbol.svg.png"/>
             <h1 class="text-2xl font-bold">MasterYang</h1>
         </div>
-        <div>
+        <div class="flex items-center space-x-4">
             <a href="index.html" id="lightModeToggle" class="text-2xl text-gray-300"><i class="fas fa-sun"></i></a>
-            <i class="fas fa-bars text-2xl ml-4 text-gray-300"></i>
+            <i class="fas fa-bars text-2xl text-gray-300"></i>
         </div>
     </header>
-    <main class="text-center mt-10">
+    <main class="text-center mt-10 px-4">
         <h2 class="text-4xl font-bold">Happy Days – Free Wisdom Generator</h2>
         <p class="mt-4">Happy Days is a simple tool that helps you generate wise quotes or compliments to brighten someone's day. Use it for your friends, family, or even yourself!</p>
     </main>
-    <section class="flex flex-wrap justify-center mt-10 space-x-4">
+    <section class="flex flex-wrap justify-center gap-6 mt-10 px-4">
         <div class="bg-blue-800 text-white p-6 rounded-lg shadow-lg w-64">
             <h3 class="text-xl font-bold mb-4">Quote Variety</h3>
             <select id="buttontext" class="bg-blue-600 p-4 rounded-lg w-full">
@@ -51,7 +51,7 @@
                 <option value="font-courier">Nice</option>
             </select>
         </div>
-        <div class="flex flex-col justify-center items-center">
+        <div class="flex flex-col items-center">
             <button id="generateButton" class="bg-green-900 text-white py-3 px-6 rounded-lg shadow-lg text-lg">Generate</button>
             <div class="flex space-x-2 mt-4">
                 <button class="text-blue-300" onclick="undo()"><i class="fas fa-undo"></i> Undo</button>
@@ -68,7 +68,7 @@
             </select>
         </div>
     </section>
-    <section class="text-center mt-10">
+    <section class="text-center mt-10 px-4">
         <div id="compliment" class="text-2xl font-bold"></div>
         <button id="copyButton" class="mt-4 bg-blue-800 text-white py-2 px-4 rounded-lg shadow-lg">Copy to Clipboard</button>
         <div id="copySuccess" class="copy-success">Successfully Copied!</div>
@@ -80,7 +80,7 @@
     </section>
     <script>
         const compliments = [
-		    "Your smile looks beautiful today.",
+            "Your smile looks beautiful today.",
             "When there's a will, there's a way.",
             "You have a great sense of humor.",
             "Hard work pays off.",
@@ -343,7 +343,7 @@
             "Your grace is unparalleled.",
             "You are a beautiful soul.",
             "Your love is a powerful force."
-		];
+        ];
         let history = [];
         let historyIndex = -1;
 
